@@ -84,7 +84,7 @@ def pd_control(target_q, q, kp, target_dq, dq, kd):
     '''
     return (target_q - q) * kp + (target_dq - dq) * kd
 
-def run_mujoco(policy, cfg):
+def run_mujoco(cfg):
     """
     Run the Mujoco simulation using the provided policy and configuration.
 
@@ -144,10 +144,10 @@ def run_mujoco(policy, cfg):
             policy_input = np.zeros([1, cfg.env.num_observations], dtype=np.float32)
             for i in range(cfg.env.frame_stack):
                 policy_input[0, i * cfg.env.num_single_obs : (i + 1) * cfg.env.num_single_obs] = hist_obs[i][0, :]
-            action[:] = policy(torch.tensor(policy_input))[0].detach().numpy()
-            action = np.clip(action, -cfg.normalization.clip_actions, cfg.normalization.clip_actions)
+            # action[:] = policy(torch.tensor(policy_input))[0].detach().numpy()
+            # action = np.clip(action, -cfg.normalization.clip_actions, cfg.normalization.clip_actions)
 
-            target_q = action * cfg.control.action_scale
+            # target_q = action * cfg.control.action_scale
 
 
         target_dq = np.zeros((cfg.env.num_actions), dtype=np.double)
@@ -157,7 +157,7 @@ def run_mujoco(policy, cfg):
         tau = np.clip(tau, -cfg.robot_config.tau_limit, cfg.robot_config.tau_limit)  # Clamp torques
         data.ctrl = tau
 
-        mujoco.mj_step(model, data)
+        # mujoco.mj_step(model, data)
         viewer.render()
         count_lowlevel += 1
 
@@ -168,8 +168,8 @@ if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser(description='Deployment script.')
-    parser.add_argument('--load_model', type=str, required=True,
-                        help='Run to load from.')
+    # parser.add_argument('--load_model', type=str, required=True,
+    #                     help='Run to load from.')
     parser.add_argument('--terrain', action='store_true', help='terrain or plane')
     args = parser.parse_args()
 
@@ -179,7 +179,7 @@ if __name__ == '__main__':
             if args.terrain:
                 mujoco_model_path = f'{LEGGED_GYM_ROOT_DIR}/resources/robots/XBot/mjcf/XBot-L-terrain.xml'
             else:
-                mujoco_model_path = f'{LEGGED_GYM_ROOT_DIR}/resources/robots/XBot/mjcf/XBot-L.xml'
+                mujoco_model_path = f'{LEGGED_GYM_ROOT_DIR}/resources/robots/XBot/mjcf/test.xml'
             sim_duration = 60.0
             dt = 0.001
             decimation = 10
@@ -189,5 +189,5 @@ if __name__ == '__main__':
             kds = np.array([10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], dtype=np.double)
             tau_limit = 200. * np.ones(12, dtype=np.double)
 
-    policy = torch.jit.load(args.load_model)
-    run_mujoco(policy, Sim2simCfg())
+    # policy = torch.jit.load(args.load_model)
+    run_mujoco(Sim2simCfg())

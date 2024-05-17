@@ -100,6 +100,9 @@ class TaskRegistry():
                             sim_device=args.sim_device,
                             headless=args.headless)
         self.env_cfg_for_wandb = env_cfg
+        print("----------------------------------------ENV:")
+        print(env)
+        print(type(env))
         return env, env_cfg
 
     def make_alg_runner(self, env, name=None, args=None, train_cfg=None, log_root="default") -> Tuple[OnPolicyRunner, LeggedRobotCfgPPO]:
@@ -150,6 +153,9 @@ class TaskRegistry():
         
         runner_class = eval(train_cfg_dict["runner_class_name"])
         runner = runner_class(env, all_cfg, log_dir, device=args.rl_device)
+        print("------------------------------------------RUNNER:")
+        print(runner)
+        print(type(runner))
         #save resume path before creating a new log_dir
         resume = train_cfg.runner.resume
         if resume:
