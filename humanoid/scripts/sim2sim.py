@@ -179,7 +179,7 @@ if __name__ == '__main__':
             if args.terrain:
                 mujoco_model_path = f'{LEGGED_GYM_ROOT_DIR}/resources/robots/XBot/mjcf/XBot-L-terrain.xml'
             else:
-                mujoco_model_path = f'{LEGGED_GYM_ROOT_DIR}/resources/robots/XBot/mjcf/test.xml'
+                mujoco_model_path = f'{LEGGED_GYM_ROOT_DIR}/resources/robots/XBot/mjcf/quad.xml'
             sim_duration = 60.0
             dt = 0.001
             decimation = 10

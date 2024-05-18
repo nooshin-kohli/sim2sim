@@ -1,3 +1,12 @@
 Fri May 17 18:02:36 2024
 WARNING: mju_openResource: unknown file '/home/lenovo/projects/sim2sim/sim2sim/resources/robots/XBot/mjcf/test.xml'
 
+Sat May 18 12:59:54 2024
+WARNING: mju_openResource: unknown file '/home/lenovo/projects/sim2sim/sim2sim/resources/robots/XBot/mjcf/test.xml'
+
+Sat May 18 13:02:31 2024
+WARNING: mju_openResource: unknown file '/home/lenovo/projects/sim2sim/sim2sim/resources/robots/XBot/mjcf/test.xml'
+
+Sat May 18 14:49:13 2024
+WARNING: mju_openResource: unknown file '/home/lenovo/projects/sim2sim/sim2sim/resources/robots/XBot/mjcf/test.xml'
+
